@@ -47,7 +47,7 @@ userRouter.post("/login", async function(req,res){
     }else{res.json({message:"user not found"})}
     
 });
-userRouter.post("/purchasecourse",user_auth, async function(req,res){
+userRouter.get("/purchases",user_auth, async function(req,res){
       const courseId = req.body.courseId;
       const userId = req.UserId;
       await PurchasesModel.create({
