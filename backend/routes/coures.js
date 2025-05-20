@@ -11,7 +11,8 @@ courseRouter.get("/preview",async function(req,res){
 });
 courseRouter.post("/purchase",user_auth,async function(req,res){
  const courseId = req.body.courseId;
-      const userId = req.UserId;
+      const userId = req.userId;
+      console.log(userId)
       await PurchasesModel.create({
         courseId:courseId,
         userId:userId

@@ -1,6 +1,6 @@
 const {Router} = require("express");
 const userRouter = Router();
-const {UserModel} = require("../db")
+const {UserModel, CourseModel} = require("../db")
 const {PurchasesModel} = require("../db")
 const jwt = require("jsonwebtoken")
 const { user_auth , JWT_USERSECRET}= require("../auth");
@@ -48,13 +48,15 @@ userRouter.post("/login", async function(req,res){
     
 });
 userRouter.get("/purchases",user_auth, async function(req,res){
-      const courseId = req.body.courseId;
-      const userId = req.UserId;
-      await PurchasesModel.create({
-        courseId:courseId,
-        userId:userId
+      const userId = req.userId;
+      const courses = await PurchasesModel.find({userId});
+    const course_content = await Promise.all(
+      courses.map(async (u) => {
+        return await CourseModel.findOne({ _id: u.courseId });
       })
-      res.json({message:"purchased successfully !"})
+    );
+    res.json({courses:course_content});
+      
 });
 
 
