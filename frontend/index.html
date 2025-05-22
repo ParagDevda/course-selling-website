@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+   <div id="login-page">
+    <div id="sign_up_success"><i class="ri-checkbox-circle-fill"></i>
+        Signed_up Successfull</div>
+     <div id="login">
+        <div id="left">
+            <img src="../components/login_img.png" alt="">
+        </div>
+        <div id="right">
+            <div id="upper">
+                <h2 id="sign-in">Sign In</h2>
+                <h2>/</h2>
+                <h2 id="sign-up">Sign Up</h2>
+            </div>
+            <div id="lower">
+                <h3><span>*</span>Email</h4>
+                    <input id="email" type="text" placeholder="Enter Your Email">
+                <h3><span>*</span>Password</h4>
+                    <input id="Password" type="password" placeholder="Enter Your Password">
+
+                <button id="sign-in-btn" onclick="sign_in_fun()">Sign In</button>
+            </div>
+        </div>
+    </div>
+   </div>
+
+   <script src="script.js"></script>
+</body>
+</html>

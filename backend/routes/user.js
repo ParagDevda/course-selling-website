@@ -40,7 +40,7 @@ userRouter.post("/login", async function(req,res){
         console.log(PassMatch)
         if(PassMatch){
         const token = jwt.sign({id:user._id},JWT_USERSECRET);
-        res.json({message:"logged in.",token:token});
+        res.json({message:"logged in.",token:token,name:user.FirstName});
     }else{
         res.json({message:"incorrect password"})
     }
