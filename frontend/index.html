@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
     <link
     href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
     rel="stylesheet"
@@ -11,13 +11,130 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
     <title>Document</title>
 </head>
+<style>
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+html,body{
+    height: 100%;
+    width:100%;
+}
+#sign_up_success{
+    position: absolute;
+    top: 3vh;
+    right: 3vh;
+    height: 5vh;
+    width: 14vw;
+    border-radius: 1vh;
+    border: solid whitesmoke 0.3vh;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    background: rgb(63, 219, 63);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1vh;
+    font-size: 2.5vh;
+    color: whitesmoke;
+    display: none;
+}
+#login-page{
+    height: 100%;
+    width:100%;
+    background: #cadbff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#login{
+    background:whitesmoke;
+    height: 75%;
+    width: 75%;
+    border-radius:2vh;
+    display: flex;
+}
+#left {
+    height: 100%;
+    width: 50%;
+    padding: 3% 2% ;
+    display: flex;
+     align-items: center;
+    justify-content: center;
+    /* border: #000 solid 2px ; */
+    /* background: #000; */
+}
+#left img{
+    height: 100%;
+    width: 80%;
+    background: #cadbff;
+    border-radius:2vh;
+    object-fit: cover;
+}
+#right{
+     height: 100%;
+    width: 50%;
+    padding: 3% 0 ;
+}
+#upper{
+    /* width: 100%; */
+    display: flex;
+    gap: 1vh;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+}
+#upper h2:hover{
+    text-decoration: underline;
+}
+#sign-in{
+    color: #1678ff;
+}
+#lower span{
+    color: rgb(248, 93, 9);
+}
+#lower{
+    color: #444;
+    width: 100%; 
+    padding-left: 8%;  
+}
+#lower h3:nth-child(1) {
+    margin-bottom: 1.1vh;
+    margin-top: 4%;
+}
+#lower h3 {
+    margin-bottom: 1.1vh;
+    margin-top: 3%;
+}
+#lower input{
+    width: 85%;
+    height: 5.5vh;
+    border-radius: 5px;
+    border: #666 solid 1px;
+    padding-left: 1vh;
+}
+button{
+    width: 85%;
+    height: 5.5vh;
+    margin-top: 3.5%;
+    border-radius: 5px;
+    background: #1678ff;
+    color: #fff;
+    font-size: 3vh;
+}
+button:hover{
+    background:  #cadbff;
+    color: black;
+}
+</style>
 <body>
    <div id="login-page">
     <div id="sign_up_success"><i class="ri-checkbox-circle-fill"></i>
-        Signed_up Successfull</div>
+        Sign up Successfull</div>
      <div id="login">
         <div id="left">
-            <img src="../components/login_img.png" alt="">
+            <img src="components/login_img.png" alt="">
         </div>
         <div id="right">
             <div id="upper">
@@ -37,6 +154,107 @@
     </div>
    </div>
 
-   <script src="script.js"></script>
+<script>
+    const sign_in = document.getElementById("sign-in");
+const sign_up =document.getElementById("sign-up");
+const img = document.querySelector("#left img");
+const lower = document.getElementById("lower");
+sign_in.addEventListener("click",function(e){
+    console.log("sign in...");
+    let clutter = `<h3><span>*</span>Email</h4>
+                    <input id="email" type="text" placeholder="Enter Your Email">
+                <h3><span>*</span>Password</h4>
+                    <input id="Password" type="password" placeholder="Enter Your Password">
+                <button id="sign-in-btn" onclick="sign_in_fun()">Sign In</button>`
+    lower.innerHTML = clutter;
+    sign_in.style.color = "#1678ff";
+    sign_up.style.color = "#000";
+    img.src = "components/login_img.png"
+})
+sign_up.addEventListener("click",function(){
+    console.log("sign up");
+    let clutter = `<h3><span>*</span>Email</h4>
+                    <input id="email" type="text" placeholder="Enter Your Email">
+                <h3><span>*</span>Password</h4>
+                    <input id="Password" type="password" placeholder="Password must cantain(capital & small letters and special character)">
+                <h3><span>*</span>First Name</h4>
+                    <input id="Fname" type="text" placeholder="Enter Your First Name">
+                <h3><span>*</span>Last Name</h4>
+                    <input id="Lname" type="text" placeholder="Enter Your Last Name">
+                <button id="sign-up-btn" onclick="sign_up_fun()">Sign Up</button>`
+    lower.innerHTML = clutter;
+    sign_up.style.color = "#1678ff";
+     sign_in.style.color = "#000";
+    img.src = "components/signin_img.png"
+})
+
+async function sign_in_fun(e){
+    const email = document.getElementById("email");
+    const password  = document.getElementById("Password");
+   if(email.value==""||password.value==""){
+    alert("enter correct credential")
+   }else{
+    try {
+     const res = await axios.post("http://localhost:3000/user/login",{
+        email:email.value,
+        Password:password.value
+    })
+    if(res.data.success){
+        console.log("hello");
+        localStorage.setItem("token",res.data.token);
+        console.log(localStorage.getItem("token"));
+        window.location = 'http://localhost:3000/main';  
+    }else{
+        console.log(res.data.message)
+        alert(res.data.message)
+    }
+   } catch (error) {
+    console.log("error");
+    
+   }
+   }
+}
+async function sign_up_fun(){
+      const email = document.getElementById("email");
+    const password  = document.getElementById("Password");
+      const Fname = document.getElementById("Fname");
+    const Lname  = document.getElementById("Lname");
+    if(email.value==""||password.value==""||Lname.value==""||Fname.value==""){
+        alert("enter right credential")
+    }else{
+       try {
+         const res = await axios.post("http://localhost:3000/user/signup",{
+            email:email.value,
+            Password:password.value,
+            FirstName:Fname.value,
+            LastName:Lname.value
+        })
+        console.log(res.data.success)
+        function success(res){
+            if(res.data.success){
+                document.getElementById("sign_up_success").style.display="block"
+                email.value="";
+                password.value="";
+                Fname.value="";
+                Lname.value="";   
+                setTimeout(()=>{
+                    document.getElementById("sign_up_success").style.display="none"
+                },5000)    
+            }else{
+                alert(res.data.message)
+            }
+        }
+        success(res);
+        
+       } catch (error) {
+           console.log("there is some error");
+       }
+    }
+    
+}
+
+
+
+</script>
 </body>
 </html>

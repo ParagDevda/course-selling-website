@@ -17,18 +17,25 @@ userRouter.post("/signup",async function(req,res){
     })
     const parsedSuccess = requiredBody.safeParse(req.body);
     if(!parsedSuccess.success){
-        res.json({message:"incorrect input",error:parsedSuccess.error.message})
+        // const error = parsedSuccess.error.issues[0].path[0]+" "+ parsedSuccess.error.issues[0].message
+        res.json({message:"incorrect input",error:parsedSuccess.error,success:false});
+        return;
+        
     }
     const {email,Password,FirstName,LastName} = req.body;
 
     const hashedPassword = await bcrypt.hash(Password , 10);
-
+    const existingUser = await UserModel.findOne({ email });
+    if (existingUser) {
+        res.json({ message: "User already exists", success: false });
+        return;
+    }
    await UserModel.create({ email:email,
         Password:hashedPassword,
         FirstName:FirstName,
         LastName:LastName
     })
-    res.json({message:"Signed up successfully !!"});
+    res.json({message:"Signed up successfully !!",success:true});
 });
 
 userRouter.post("/login", async function(req,res){
@@ -40,11 +47,11 @@ userRouter.post("/login", async function(req,res){
         console.log(PassMatch)
         if(PassMatch){
         const token = jwt.sign({id:user._id},JWT_USERSECRET);
-        res.json({message:"logged in.",token:token,name:user.FirstName});
+        res.json({message:"logged in.",token:token,name:user.FirstName,success:true});
     }else{
-        res.json({message:"incorrect password"})
+        res.json({message:"incorrect password",success:false})
     }
-    }else{res.json({message:"user not found"})}
+    }else{res.json({message:"user not found",success:false})}
     
 });
 userRouter.get("/purchases",user_auth, async function(req,res){
