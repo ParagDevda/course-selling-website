@@ -3,17 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+    <title>coursera</title>
 </head>
 <body>
     <nav>
-        hello
+        <div id="n-left">
+            <img src="./components/logo.png" alt="">
+            <h1>coursera</h1>
+        </div>
+        <div id="n-right">
+            <div id="user">
+                <i onclick="user_info()" class="ri-user-line"></i>
+                <div id="name">
+                    <h2>Parag</h2>
+                </div>
+            </div>
+            <i id="logout" class="ri-logout-box-r-line"></i>
+        </div>
     </nav>
 
     <script src="script.js">
-        console.log("token");
-        const token = localStorage.getItem("token");
-        console.log(token);
+       
+        // console.log("token");
+        // const token = localStorage.getItem("token");
+        // console.log(token);
     </script>
 </body>
 </html>
