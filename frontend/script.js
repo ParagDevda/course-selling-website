@@ -1,5 +1,5 @@
 let click =0;
-function user_info(name){
+function user_info(n){
     click++;
     const name = document.getElementById("name");
     if(click%2!==0){

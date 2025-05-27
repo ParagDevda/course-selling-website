@@ -18,6 +18,8 @@ nav{
     position: fixed;
     backdrop-filter: blur(10%);
     background: rgba(255, 255, 255, 0.2);
+    border-bottom:solid 0.2vh #666;
+    z-index: 9;
 }
 
 #n-left img{
@@ -70,4 +72,43 @@ nav{
 }
 
 /* --------------------nav done--------------- */
-
+main{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    padding-top: 4.9%;
+    position: relative;
+    padding-left: 14%;
+}
+#m-left{
+    /* background: #000; */
+    border-right: 0.2vh solid #666;
+    /* border-top: 0.2vh solid #666; */
+    height: 100%;
+    width: 14%;
+    color: rgb(7, 152, 242);
+    text-align: center;
+    position: fixed;
+    top: 10%;
+    left: 0%;
+}
+#courses{
+    border-bottom: #666 solid 0.2vh;
+}
+#m-right{
+    /* background:red; */
+    /* border-top: 0.2vh solid #666; */
+    height: 100%;
+    width: 100%;
+    padding: 3vh 8vh 5vh 12vh;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5vh;
+}
+.cards{
+    width: 35vw;
+    height: 40vh;
+    /* background: #000; */
+    border-radius: 3vh;
+    border: #666 solid .3vh;
+}
