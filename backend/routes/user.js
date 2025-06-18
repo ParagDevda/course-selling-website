@@ -7,6 +7,16 @@ const { user_auth , JWT_USERSECRET}= require("../auth");
 const bcrypt = require("bcrypt");
 const {z} =require("zod");
 
+userRouter.get("/",user_auth,async function(req,res){
+    console.log("hello")
+    const userId=req.userId;
+    const response = await UserModel.findOne({_id:userId});
+    console.log(response)
+    if(response){
+        res.json({name:response.FirstName})
+    }
+
+})
 userRouter.post("/signup",async function(req,res){
     const requiredBody = z.object({
         email:z.string().min(3).max(50).email(),
