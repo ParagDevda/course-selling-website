@@ -116,5 +116,9 @@ async function buy(n){
     })
     console.log(res.data.message)
 }
+async function logout(){
+    localStorage.removeItem('token')
+    window.location= 'http://localhost:3000/'
+}
 
 
